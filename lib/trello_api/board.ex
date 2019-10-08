@@ -3,7 +3,7 @@ defmodule TrelloApi.Board do
   import Ecto.Changeset
   alias TrelloApi.{Board, Repo}
 
-  @derive {Jason.Encoder, only: [:name]}
+  @derive {Jason.Encoder, only: [:id, :name]}
   schema "boards" do
     field :name, :string
 
@@ -24,5 +24,9 @@ defmodule TrelloApi.Board do
 
   def list_boards do
     Repo.all(Board)
+  end
+
+  def get_board(id) do
+    Repo.get(Board, id)
   end
 end

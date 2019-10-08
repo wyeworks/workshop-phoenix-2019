@@ -7,7 +7,6 @@ defmodule TrelloApiWeb.Router do
 
   scope "/api", TrelloApiWeb do
     pipe_through :api
-    get "/boards", BoardController, :index
-    post "/boards", BoardController, :create
+    resources "/boards", BoardController, only: [:create, :index, :show]
   end
 end
