@@ -1,7 +1,9 @@
 defmodule TrelloApi.Board do
   use Ecto.Schema
   import Ecto.Changeset
+  alias TrelloApi.{Board, Repo}
 
+  @derive {Jason.Encoder, only: [:name]}
   schema "boards" do
     field :name, :string
 
@@ -13,5 +15,9 @@ defmodule TrelloApi.Board do
     board
     |> cast(attrs, [:name])
     |> validate_required([:name])
+  end
+
+  def list_boards do
+    Repo.all(Board)
   end
 end
