@@ -17,6 +17,11 @@ defmodule TrelloApi.Board do
     |> validate_required([:name])
   end
 
+  def create_board(name) do
+    %TrelloApi.Board{name: name}
+    |> TrelloApi.Repo.insert!()
+  end
+
   def list_boards do
     Repo.all(Board)
   end
