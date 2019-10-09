@@ -3,8 +3,19 @@ defmodule TrelloApiWeb.BoardController do
   alias TrelloApi.Board
 
   def create(conn, %{"name" => name}) do
-    board = Board.create_board(name)
-    json(conn, board)
+    name
+    |> Board.create()
+    |> case do
+      {:ok, board} ->
+        conn
+        |> put_status(:created)
+        |> json(board)
+
+      {:error, _changeset} ->
+        conn
+        |> put_status(:bad_request)
+        |> json(%{errors: ["Invalid Board"]})
+    end
   end
 
   def index(conn, _params) do
