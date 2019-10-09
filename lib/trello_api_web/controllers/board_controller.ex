@@ -3,9 +3,7 @@ defmodule TrelloApiWeb.BoardController do
   alias TrelloApi.Board
 
   def create(conn, %{"name" => name}) do
-    name
-    |> Board.create()
-    |> case do
+    case Board.create(name) do
       {:ok, board} ->
         conn
         |> put_status(:created)
