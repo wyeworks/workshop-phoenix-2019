@@ -1,5 +1,6 @@
 defmodule TrelloApiWeb.BoardController do
   use TrelloApiWeb, :controller
+
   alias TrelloApi.Board
 
   def create(conn, %{"name" => name}) do
