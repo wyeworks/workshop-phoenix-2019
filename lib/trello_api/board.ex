@@ -3,10 +3,11 @@ defmodule TrelloApi.Board do
 
   import Ecto.Changeset
 
-  alias TrelloApi.{Board, Repo}
+  alias TrelloApi.{Board, BoardList, Repo}
 
   schema "boards" do
     field :name, :string
+    has_many :board_lists, BoardList
 
     timestamps()
   end
