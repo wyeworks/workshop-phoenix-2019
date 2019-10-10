@@ -4,7 +4,8 @@ defmodule TrelloApiWeb.BoardView do
   def render("show.json", %{board: board}) do
     %{
       id: board.id,
-      name: board.name
+      name: board.name,
+      lists: board.board_lists
     }
   end
 end

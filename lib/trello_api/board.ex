@@ -5,6 +5,8 @@ defmodule TrelloApi.Board do
 
   alias TrelloApi.{Board, BoardList, Repo}
 
+  @default_lists ["ToDo", "Doing", "Done"]
+
   @derive {Jason.Encoder, only: [:id, :name]}
   schema "boards" do
     field :name, :string
@@ -24,6 +26,7 @@ defmodule TrelloApi.Board do
     %Board{}
     |> changeset(%{name: name})
     |> Repo.insert()
+    |> after_insertion()
   end
 
   def list_boards do
@@ -32,5 +35,27 @@ defmodule TrelloApi.Board do
 
   def get_board(id) do
     Repo.get!(Board, id)
+    |> Repo.preload(:board_lists)
   end
+
+  defp after_insertion({:ok, board}), do: create_default_lists(board)
+  defp after_insertion({:error, _changeset} = result), do: result
+
+  defp create_default_lists(board) do
+    lists =
+      Enum.map(@default_lists, fn title ->
+        %{
+          title: title,
+          board_id: board.id,
+          inserted_at: time_now(),
+          updated_at: time_now()
+        }
+      end)
+
+    Repo.insert_all(BoardList, lists)
+
+    {:ok, board |> Repo.preload(:board_lists)}
+  end
+
+  defp time_now(), do: NaiveDateTime.utc_now() |> NaiveDateTime.truncate(:second)
 end
