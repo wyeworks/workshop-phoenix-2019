@@ -3,7 +3,7 @@ defmodule TrelloApi.BoardList do
 
   import Ecto.Changeset
 
-  alias TrelloApi.{Board}
+  alias TrelloApi.Board
 
   @derive {Jason.Encoder, only: [:id, :title, :board_id]}
   schema "board_lists" do
