@@ -18,9 +18,9 @@ defmodule TrelloApi.Board do
   end
 
   def create(name) do
-    %TrelloApi.Board{name: name}
+    %Board{name: name}
     |> changeset()
-    |> TrelloApi.Repo.insert()
+    |> Repo.insert()
   end
 
   def list_boards do
