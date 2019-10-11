@@ -34,8 +34,9 @@ defmodule TrelloApi.Board do
   end
 
   def get_board(id) do
-    Repo.get!(Board, id)
-    |> Repo.preload(:board_lists)
+    Board
+    |> Repo.get!(id)
+    |> Repo.preload(board_lists: :cards)
   end
 
   defp after_insertion({:ok, board}), do: create_default_lists(board)
@@ -54,7 +55,7 @@ defmodule TrelloApi.Board do
 
     Repo.insert_all(BoardList, lists)
 
-    {:ok, board |> Repo.preload(:board_lists)}
+    {:ok, Repo.preload(board, board_lists: :cards)}
   end
 
   defp time_now(), do: NaiveDateTime.utc_now() |> NaiveDateTime.truncate(:second)
