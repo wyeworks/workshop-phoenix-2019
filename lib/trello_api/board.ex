@@ -11,15 +11,16 @@ defmodule TrelloApi.Board do
   end
 
   @doc false
-  def changeset(board, attrs) do
+  def changeset(board, attrs \\ %{}) do
     board
     |> cast(attrs, [:name])
     |> validate_required([:name])
   end
 
-  def create_board(name) do
-    %TrelloApi.Board{name: name}
-    |> TrelloApi.Repo.insert!()
+  def create(name) do
+    %Board{name: name}
+    |> changeset()
+    |> Repo.insert()
   end
 
   def list_boards do
