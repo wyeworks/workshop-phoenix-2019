@@ -26,25 +26,7 @@ defmodule TrelloApi.Board do
     %Board{name: name}
     |> changeset()
     |> Repo.insert()
-    |> case do
-      {:ok, board} ->
-        lists =
-          Enum.map(@default_lists, fn title ->
-            %{
-              title: title,
-              board_id: board.id,
-              inserted_at: NaiveDateTime.utc_now() |> NaiveDateTime.truncate(:second),
-              updated_at: NaiveDateTime.utc_now() |> NaiveDateTime.truncate(:second)
-            }
-          end)
-
-        Repo.insert_all(BoardList, lists)
-
-        {:ok, board |> Repo.preload(:board_lists)}
-
-      {:error, changeset} ->
-        {:error, changeset}
-    end
+    |> after_insertion()
   end
 
   def list_boards do
@@ -53,5 +35,24 @@ defmodule TrelloApi.Board do
 
   def get_board(id) do
     Repo.get(Board, id)
+  end
+
+  defp after_insertion({:ok, board}), do: create_default_lists(board)
+  defp after_insertion({:error, changeset}), do: {:error, changeset}
+
+  defp create_default_lists(board) do
+    lists =
+      Enum.map(@default_lists, fn title ->
+        %{
+          title: title,
+          board_id: board.id,
+          inserted_at: NaiveDateTime.utc_now() |> NaiveDateTime.truncate(:second),
+          updated_at: NaiveDateTime.utc_now() |> NaiveDateTime.truncate(:second)
+        }
+      end)
+
+    Repo.insert_all(BoardList, lists)
+
+    {:ok, board |> Repo.preload(:board_lists)}
   end
 end
