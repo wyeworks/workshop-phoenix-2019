@@ -46,8 +46,8 @@ defmodule TrelloApi.Board do
         %{
           title: title,
           board_id: board.id,
-          inserted_at: NaiveDateTime.utc_now() |> NaiveDateTime.truncate(:second),
-          updated_at: NaiveDateTime.utc_now() |> NaiveDateTime.truncate(:second)
+          inserted_at: time_now(),
+          updated_at: time_now()
         }
       end)
 
@@ -55,4 +55,6 @@ defmodule TrelloApi.Board do
 
     {:ok, board |> Repo.preload(:board_lists)}
   end
+
+  defp time_now(), do: NaiveDateTime.utc_now() |> NaiveDateTime.truncate(:second)
 end
