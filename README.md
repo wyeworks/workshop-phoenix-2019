@@ -1,5 +1,16 @@
 # TrelloApi
 
+## Requirements
+
+  * Elixir 1.9.1
+  * Erlang 22.0.7
+
+## Setup
+
+To install Elixir and Erlang:
+
+  * Follow the steps recommended in [Elixir official webpage](https://elixir-lang.org/install.html)
+
 To start your Phoenix server:
 
   * Install dependencies with `mix deps.get`
