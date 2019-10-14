@@ -11,6 +11,8 @@ To install Elixir and Erlang:
 
   * Follow the steps recommended in [Elixir official webpage](https://elixir-lang.org/install.html)
 
+## Getting started
+
 To start your Phoenix server:
 
   * Install dependencies with `mix deps.get`
