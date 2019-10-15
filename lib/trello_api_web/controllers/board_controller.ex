@@ -8,7 +8,7 @@ defmodule TrelloApiWeb.BoardController do
       {:ok, board} ->
         conn
         |> put_status(:created)
-        |> json(board)
+        |> render("show.json", board: board)
 
       {:error, _changeset} ->
         conn
@@ -24,6 +24,6 @@ defmodule TrelloApiWeb.BoardController do
 
   def show(conn, %{"id" => id}) do
     board = Board.get_board(id)
-    json(conn, board)
+    render(conn, "show.json", board: board)
   end
 end

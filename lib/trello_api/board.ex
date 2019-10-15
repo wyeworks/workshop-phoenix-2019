@@ -35,6 +35,7 @@ defmodule TrelloApi.Board do
 
   def get_board(id) do
     Repo.get!(Board, id)
+    |> Repo.preload(:board_lists)
   end
 
   defp after_insertion({:ok, board}), do: create_default_lists(board)
