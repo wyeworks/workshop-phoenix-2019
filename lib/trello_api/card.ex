@@ -19,4 +19,12 @@ defmodule TrelloApi.Card do
     |> validate_required([:text, :board_list_id])
     |> foreign_key_constraint(:board_list_id)
   end
+
+  def create(text, list_id) do
+    board_list = Repo.get(BoardList, list_id)
+
+    %Card{text: text, board_list_id: board_list.id}
+    |> changeset()
+    |> Repo.insert()
+  end
 end
