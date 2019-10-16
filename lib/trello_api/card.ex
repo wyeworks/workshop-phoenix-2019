@@ -4,7 +4,7 @@ defmodule TrelloApi.Card do
 
   alias TrelloApi.{BoardList, Card, Repo}
 
-  @derive {Jason.Encoder, only: [:id, :text, :board_list_id]}
+  @derive {Jason.Encoder, only: [:id, :text]}
   schema "cards" do
     field :text, :string
     belongs_to :board_list, BoardList
