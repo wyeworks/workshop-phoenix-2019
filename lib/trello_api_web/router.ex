@@ -10,6 +10,6 @@ defmodule TrelloApiWeb.Router do
     resources "/boards", BoardController, only: [:create, :index, :show]
 
     resources "/lists/:list_id/cards", CardController, only: [:create]
-    resources "/cards", CardController, only: [:edit, :delete]
+    resources "/cards", CardController, only: [:update]
   end
 end

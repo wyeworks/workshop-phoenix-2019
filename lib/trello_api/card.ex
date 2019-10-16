@@ -25,4 +25,17 @@ defmodule TrelloApi.Card do
     |> changeset()
     |> Repo.insert()
   end
+
+  def get(id) do
+    case Repo.get(Card, id) do
+      nil -> {:error, :not_found}
+      card -> {:ok, card}
+    end
+  end
+
+  def update(card, text) do
+    card
+    |> changeset(%{text: text})
+    |> Repo.update()
+  end
 end
