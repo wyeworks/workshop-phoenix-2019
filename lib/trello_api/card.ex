@@ -21,8 +21,8 @@ defmodule TrelloApi.Card do
   end
 
   def create(text, list_id) do
-    %Card{text: text, board_list_id: list_id}
-    |> changeset()
+    %Card{}
+    |> changeset(%{text: text, board_list_id: list_id})
     |> Repo.insert()
   end
 

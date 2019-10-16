@@ -4,7 +4,7 @@ defmodule TrelloApiWeb.CardController do
   alias TrelloApi.Card
 
   def create(conn, %{"text" => text, "list_id" => list_id}) do
-    case Card.create(text, String.to_integer(list_id)) do
+    case Card.create(text, list_id) do
       {:ok, card} ->
         conn
         |> put_status(:created)
