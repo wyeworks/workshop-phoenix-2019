@@ -29,8 +29,7 @@ defmodule TrelloApi.Card do
   end
 
   def get(id) do
-    Repo.get(Card, id)
-    |> case do
+    case Repo.get(Card, id) do
       nil -> {:error, :not_found}
       card -> {:ok, card}
     end
@@ -39,8 +38,6 @@ defmodule TrelloApi.Card do
   def update(card, text) do
     card
     |> changeset(%{text: text})
-    |> IO.inspect()
     |> Repo.update()
-    |> IO.inspect()
   end
 end
