@@ -4,10 +4,11 @@ defmodule TrelloApiWeb.BoardChannel do
   alias TrelloApi.BoardList
 
   @impl true
-  def join("board:" <> board_id, _params, socket) do
+  def join("board:" <> _board_id, _params, socket) do
     {:ok, socket}
   end
 
+  @impl true
   def handle_in("card_created", %{"list_id" => list_id}, socket) do
     board_list = BoardList.get(list_id)
 
