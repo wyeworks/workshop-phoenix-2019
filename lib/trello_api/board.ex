@@ -54,7 +54,7 @@ defmodule TrelloApi.Board do
 
     Repo.insert_all(BoardList, lists)
 
-    {:ok, board |> Repo.preload(:board_lists)}
+    {:ok, board |> Repo.preload(board_lists: :cards) }
   end
 
   defp time_now(), do: NaiveDateTime.utc_now() |> NaiveDateTime.truncate(:second)
