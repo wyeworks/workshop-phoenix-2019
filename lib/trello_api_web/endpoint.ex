@@ -1,8 +1,9 @@
 defmodule TrelloApiWeb.Endpoint do
   use Phoenix.Endpoint, otp_app: :trello_api
 
-  socket "/socket", TrelloApiWeb.UserSocket,
+  socket "/socket", TrelloApiWeb.BoardSocket,
     websocket: true,
+    check_origin: false,
     longpoll: false
 
   # Serve at "/" the static files from "priv/static" directory.
