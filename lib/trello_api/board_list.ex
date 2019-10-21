@@ -3,7 +3,7 @@ defmodule TrelloApi.BoardList do
 
   import Ecto.Changeset
 
-  alias TrelloApi.{Board, Card}
+  alias TrelloApi.{Board, BoardList, Card, Repo}
 
   @derive {Jason.Encoder, only: [:id, :title, :cards]}
   schema "board_lists" do
@@ -20,5 +20,11 @@ defmodule TrelloApi.BoardList do
     |> cast(attrs, [:title, :board_id])
     |> validate_required([:title, :board_id])
     |> foreign_key_constraint(:board_id)
+  end
+
+  def get(id) do
+    BoardList
+    |> Repo.get!(id)
+    |> Repo.preload(:cards)
   end
 end
