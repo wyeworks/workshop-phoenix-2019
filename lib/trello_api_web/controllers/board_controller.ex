@@ -19,7 +19,7 @@ defmodule TrelloApiWeb.BoardController do
 
   def index(conn, _params) do
     boards = Board.list_boards()
-    json(conn, boards)
+    render(conn, "index.json", boards: boards)
   end
 
   def show(conn, %{"id" => id}) do

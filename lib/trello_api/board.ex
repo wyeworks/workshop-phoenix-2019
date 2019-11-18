@@ -7,7 +7,6 @@ defmodule TrelloApi.Board do
 
   @default_lists ["ToDo", "Doing", "Done"]
 
-  @derive {Jason.Encoder, only: [:id, :name]}
   schema "boards" do
     field :name, :string
     has_many :board_lists, BoardList
