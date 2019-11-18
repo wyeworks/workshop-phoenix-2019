@@ -1,9 +1,9 @@
 defmodule TrelloApi.Board do
   use Ecto.Schema
 
-  import Ecto.Changeset
+  import Ecto.{Changeset, Query}
 
-  alias TrelloApi.{Board, BoardList, Repo}
+  alias TrelloApi.{Board, BoardList, Card, Repo}
 
   @default_lists ["ToDo", "Doing", "Done"]
 
@@ -35,7 +35,7 @@ defmodule TrelloApi.Board do
   def get_board(id) do
     Board
     |> Repo.get!(id)
-    |> Repo.preload(board_lists: :cards)
+    |> Repo.preload(board_lists: [cards: from(card in Card, order_by: card.inserted_at)])
   end
 
   defp after_insertion({:ok, board}), do: create_default_lists(board)
