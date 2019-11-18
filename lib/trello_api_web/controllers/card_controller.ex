@@ -8,7 +8,7 @@ defmodule TrelloApiWeb.CardController do
       {:ok, card} ->
         conn
         |> put_status(:created)
-        |> json(card)
+        |> render("card.json", card: card)
 
       {:error, _changeset} ->
         conn
