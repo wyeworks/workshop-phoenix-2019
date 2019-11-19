@@ -1,7 +1,7 @@
 defmodule TrelloApiWeb.BoardView do
   use TrelloApiWeb, :view
 
-  def render("show.json", %{board: board}) do
+  def render("board_with_lists.json", %{board: board}) do
     %{
       id: board.id,
       name: board.name,
@@ -9,7 +9,7 @@ defmodule TrelloApiWeb.BoardView do
     }
   end
 
-  def render("index.json", %{boards: boards}) do
+  def render("boards.json", %{boards: boards}) do
     render_many(boards, __MODULE__, "board.json")
   end
 
